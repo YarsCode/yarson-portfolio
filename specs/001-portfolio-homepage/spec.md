@@ -9,6 +9,16 @@ for now - no need to create the other pages, only create the homepage.
 the main section of the homepage (below the header) would contain a short simple sentence just as a placeholder for now. then the footer, with basic nav links, and copyright text with year, name \"Yarson\".
 The header and footer are shared layout components rendered once for the entire app."
 
+## Clarifications
+
+### Session 2025-10-28
+
+- Q: How should the navigation behave on mobile vs desktop? → A: Full nav on desktop; collapsible hamburger on mobile.
+- Q: What mobile breakpoint triggers the hamburger? → A: Below 640px (phones only).
+- Q: How should the mobile hamburger toggle be implemented? → A: JavaScript toggle with sliding animation.
+- Q: What semantics for non-navigating nav items (Work/About/Contact)? → A: Anchor tags with href="#"; prevent navigation.
+- Q: Precisely how should the hamburger open/close behavior work? → A: Toggle button opens/closes; clicking outside or a menu link closes.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - View homepage with persistent navigation (Priority: P1)
@@ -40,6 +50,7 @@ As a visitor, I can see navigation items in the header and footer, and clicking 
 
 1. **Given** the homepage is visible, **When** I click Work/About/Contact, **Then** the URL and page do not change to a different route.
 2. **Given** the homepage is visible, **When** I click Home, **Then** the viewport scrolls to the top of the page.
+3. **Given** the homepage is visible, **When** I click Work/About/Contact, **Then** the scroll position remains unchanged and no hash is added to the URL.
 
 ---
 
@@ -55,6 +66,11 @@ As a keyboard and mobile user, I can read and navigate the header and footer lin
 
 1. **Given** I use a keyboard, **When** I tab through the page, **Then** focus moves in order through header links, then footer links.
 2. **Given** a 320px-wide viewport, **When** I view the header, **Then** nav items remain visible/readable without overlap or clipping.
+3. **Given** a 640px-wide viewport, **When** I view the header, **Then** the inline nav is visible and the hamburger is hidden.
+4. **Given** a 375px-wide viewport, **When** I view the header, **Then** the hamburger is visible and the full nav is collapsed.
+5. **Given** a phone viewport with the hamburger visible, **When** I click the hamburger, **Then** the menu opens with a sliding animation.
+6. **Given** the mobile menu is open, **When** I click the hamburger again or click outside the menu, **Then** the menu closes.
+7. **Given** the mobile menu is open, **When** I click any menu link, **Then** the menu closes.
 
 ---
 
@@ -79,6 +95,14 @@ As a keyboard and mobile user, I can read and navigate the header and footer lin
 - **FR-007**: The layout is responsive: at viewport widths from 320px to 1440px, header and footer nav items remain visible/readable without overlapping or being clipped.
 - **FR-008**: No additional pages or routes are created beyond the homepage for this feature.
 - **FR-009**: Header and footer are rendered once per page (no duplicate instances).
+
+- **FR-010**: Responsive navigation behavior: show inline nav on desktop/tablets; switch to a collapsible hamburger menu below 640px width (phones only).
+
+- **FR-011**: The mobile hamburger menu uses JavaScript to toggle open/close with a sliding animation; it must remain fully keyboard accessible and update ARIA state (e.g., `aria-expanded`).
+
+- **FR-012**: Non-active nav items (Work/About/Contact) are rendered as anchor elements to preserve link semantics; navigation is suppressed (e.g., prevent default) so clicking does not change URL or scroll position until pages exist.
+
+- **FR-013**: Mobile menu behavior: clicking the hamburger opens/closes the menu; clicking outside the open menu closes it; clicking any menu link closes the menu.
 
 ### Key Entities *(include if feature involves data)*
 
