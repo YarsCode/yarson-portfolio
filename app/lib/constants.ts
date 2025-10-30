@@ -9,7 +9,7 @@ export const NAV_LINKS: NavigationConfig = {
     {
       id: 'home',
       label: 'Home',
-      href: '#',
+      href: '/',
       action: 'scroll-to-top',
       order: 0,
     },

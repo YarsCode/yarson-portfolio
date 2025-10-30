@@ -14,8 +14,8 @@ export const NavigationLinkSchema = z.object({
   href: z.string()
     .min(1, 'Link href cannot be empty')
     .refine(
-      (val) => val.startsWith('#') || z.string().url().safeParse(val).success,
-      'Must be a valid URL or anchor link'
+      (val) => val.startsWith('#') || val.startsWith('/') || z.string().url().safeParse(val).success,
+      'Must be a valid URL, path, or anchor link'
     ),
   
   action: z.enum(['navigate', 'scroll-to-top', 'placeholder'], {
